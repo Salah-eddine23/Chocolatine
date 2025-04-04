@@ -20,7 +20,7 @@ jobs:
  
     container:
        image: ghcr.io/epitech/coding-style-checker:latest
-     if: ${{ github.repository != 'Salah-eddine23/Chocolatine' }}
+     if: ${{ github.repository != 'Salah-eddine23/Chocolatine.git' }}
  
     steps:
  
