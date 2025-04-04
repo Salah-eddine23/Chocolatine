@@ -10,7 +10,7 @@ on:
 
 env:
   MIRROR_URL: git@github.com:Salah-eddine23/Chocolatine.git
-  EXECUTABLES: my_printf
+  EXECUTABLES: mysh
 
 jobs:
   check_coding_style:

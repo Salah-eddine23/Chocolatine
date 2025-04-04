@@ -1,84 +1,65 @@
 ##
 ## EPITECH PROJECT, 2024
-## makefile
+## salah-eddine
 ## File description:
-## makefile for printf
+## Makefile
 ##
 
-SRC		=		my_putchar.c \
-				my_putstr.c	\
-				my_strlen.c	\
-				initial_check.c	\
-				my_put_double.c	\
-				my_printf.c	\
-                my_put_base_l.c \
-                my_put_base_h.c \
-				my_put_base.c \
-				my_put_nbr.c \
-				my_strdup.c \
-				check_is_flag.c	\
-		        check_is_specifier.c \
-				check_is_len.c \
-				check_is_element.c \
-				my_revstr.c \
-                skip_over.c \
-                my_to_science.c \
-                add_str.c \
-                flag_g.c \
-                get_elements.c \
-                look_for_precision.c \
-                num_size.c \
-                printf_flags/add_address.c \
-                printf_flags/build_buffer.c \
-                printf_flags/flag_cap_g.c \
-                printf_flags/flag_cap_x.c \
-                printf_flags/flag_cap_e.c \
-                printf_flags/flag_cap_f.c \
-                printf_flags/flag_e.c \
-                printf_flags/flag_g1.c \
-                printf_flags/flag_x.c \
-                printf_flags/flag_u.c \
-                printf_flags/flag_o.c \
-                printf_flags/flag_s.c \
-                printf_flags/flag_percent.c \
-                printf_flags/flag_d.c \
-                printf_flags/flag_f.c \
-                printf_flags/flag_i.c \
-                printf_flags/flag_c.c \
-                printf_flags/flag_p.c
+.PHONY: all clean fclean re unit_tests tests_run coverage
 
-MAIN    =       main.c
+SRC =	src/create_a_shell.c	\
+		src/parse_cmd.c	\
+		src/handle_signal.c	\
+		src/segfault.c	\
+		src/shell_commands/env.c	\
+		src/shell_commands/set_env.c	\
+		src/shell_commands/command_cd.c	\
+		src/shell_commands/simple_commands.c	\
+		src/shell_commands/other_simple_commands.c	\
+		lib/my_putchar.c	\
+		lib/my_putstr.c	\
+		lib/my_strdup.c	\
+		lib/my_strncmp.c	\
+		lib/my_str_isnum.c	\
+		lib/my_str_isalpha.c	\
+		lib/my_strcat.c	\
+		lib/my_strcpy.c	\
+		lib/my_strncpy.c	\
+		lib/printf/my_strlen.c	\
+		lib/my_strcmp.c
 
-OBJ		=		$(SRC:.c=.o)
+MAIN =  src/main.c
 
-FLAGS   =       -lcriterion --coverage -L. libmy.a
+NAME = mysh
 
-NAME	=		libmy.a
+OBJ = $(SRC:.c=.o)
 
-TEST_OUT =		unit-test
+CFLAGS = -I./include -g
 
-TEST_FILES	=	tests/test_my_printf.c
+TEST_FILES = tests/unit_test_minishell.c
 
-SRC_TESTS	=   my_printf.c
-
-all:	$(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
+	gcc -o $(NAME) $(OBJ) $(MAIN)
+
+unit_tests:
+	gcc -o unit_tests $(TEST_FILES) $(SRC) --coverage -lcriterion
+
+tests_run: unit_tests
+	./unit_tests
+
+coverage: tests_run
+	gcovr --exclude /tests
+	gcovr --exclude /tests --txt-metric branch
 
 clean:
 	rm -f $(OBJ)
+	rm -f *.gcno
+	rm -f *.gcda
+	rm -f unit_tests
 
-fclean:	clean
+fclean: clean
 	rm -f $(NAME)
-	rm -f $(TEST_OUT)
-
-clean_test: fclean
-	find -name "*gcno" -delete
-	find -name "*gcda" -delete
-
-tests_run: fclean all
-	gcc -o $(TEST_OUT) $(SRC) $(TEST_FILES) $(FLAGS)
-	./$(TEST_OUT)
 
 re: fclean all
