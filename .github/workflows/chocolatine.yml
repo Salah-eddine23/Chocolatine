@@ -23,7 +23,7 @@ jobs:
           exit 1
           fi
   check_coding_style:
-    needs: check_repository
+    needs: check-repository
     name: Checking coding-style
     runs-on: ubuntu-latest
     if: ${{ github.repository != 'Salah-eddine23/Chocolatine.git' }}
