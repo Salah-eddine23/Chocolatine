@@ -71,7 +71,7 @@ jobs:
     name: Running tests
     runs-on: ubuntu-latest
     needs: [check_program_compilation]
-    if: ${{ success() && github.repository != 'Salah-eddine23/Chocolatine' }}
+    if: ${{ success() && github.repository != 'Salah-eddine23/Chocolatine.git' }}
     container:
       image: epitechcontent/epitest-docker:latest
 
