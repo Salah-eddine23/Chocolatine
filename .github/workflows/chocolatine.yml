@@ -13,7 +13,7 @@ env:
    EXECUTABLES: my_printf
  
 jobs:
- 
+
   check_coding_style:
      name: Checking coding-style
      runs-on: ubuntu-latest
