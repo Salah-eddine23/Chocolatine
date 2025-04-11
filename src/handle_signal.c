@@ -14,7 +14,7 @@ void sigint_handler(int sig)
     write(1, "\nmysh> ", 7);
 }
 
-void handle_signals(void)
+void handle_signals()
 {
     signal(SIGINT, sigint_handler);
     signal(SIGTSTP, SIG_IGN);
